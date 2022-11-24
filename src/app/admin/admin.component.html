@@ -1,0 +1,60 @@
+<div class="row adminBody">
+    <div class="col-md-2">
+        <form (ngSubmit)="onSubmit()" [formGroup]="adminSearchForm">
+            <div class="form-group mb-3">
+                <label class="form-label" for="studentId">Student ID</label>
+                <input class="form-control" type="text" id="studentId" formControlName="studentId">
+                <span class="help-text" *ngIf="!adminSearchForm.get('studentId').valid && adminSearchForm.get('studentId').touched">Please enter a valid student ID.</span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label" for="oganizationId">Organization ID</label>
+                <input class="form-control" type="text" id="organizationId" formControlName="organizationId">
+                <span class="help-text" *ngIf="!adminSearchForm.get('organizationId').valid && adminSearchForm.get('organizationId').touched">Please enter a valid organization ID.</span>
+            </div>
+            <button id="submitButton" class="btn btn-primary" type="submit" [disabled]="!adminSearchForm.get('organizationId').valid">Submit</button>
+        </form>
+    </div>
+    <div id="studentCoursesTable" class="col-md-6" *ngIf="studentDetailsShown && studentDetailsShown.coursesEnrolled.length > 0">
+        <div id="studentMetadata" class="row">
+            <div id="StudentIdName" class="col-md-6">
+                <h6>Student Id</h6><p>{{studentMetadata.studentId}}</p>
+                <h6>Student Name</h6><p>{{studentMetadata.firstName}} {{studentMetadata.lastName}}</p>
+                <h6>Program</h6><p>{{studentMetadata.programName}}</p>
+            </div>
+            <div class="col-md-6">
+                <h6>Department</h6><p>{{studentMetadata.departmentName}}</p>
+                <h6>Organization</h6><p>{{studentMetadata.organizationName}}</p>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <th>#</th>
+                <th>Course</th>
+                <th>Department</th>
+                <th>Academic Year</th>
+                <th>Academic Term</th>
+                <th>Marks</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let course of studentDetailsShown.coursesEnrolled; let i = index">
+                    <th>{{i+1}}</th>
+                    <td>{{course.courseName}}</td>
+                    <td>{{course.departmentName}}</td>
+                    <td>{{course.academicYear}}</td>
+                    <td>{{course.academicTerm}}</td>
+                    <td>{{course.marks}}</td>
+                    <td><button class="btn btn-warning" type="button" (click)="onDeleteEnrolledCourse(1, studentMetadata.studentId, {courseCode: course.courseCode, courseLevel: course.courseLevel, academicYear: course.academicYear, academicTerm: course.academicTerm})">Delete</button></td>
+                    <!-- TODO: updae the organization to not be harcoded. -->
+                    <td><button class="btn btn-primary" type="button" (click)="onEnrolledCourseEdit(studentMetadata,course)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <div class="col-md-6" *ngIf="studentDetailsShown && studentDetailsShown.coursesEnrolled.length === 0">
+            <h4>This student has not enrolled for any courses.</h4>
+        </div>
+    <div id="courseEditForm" class="col-md-3" *ngIf="isUserWantToEditEnrolledCourse">
+        <app-course-edit [selectedCourseToBeEdited]="emitSelectedCourseByUser"></app-course-edit>
+    </div>
+</div>

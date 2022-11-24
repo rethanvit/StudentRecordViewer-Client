@@ -1,0 +1,30 @@
+.adminBody{
+    margin: 1.5em;
+}
+
+#studentCoursesTable{
+    margin-left: 1.5em;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* #submitButton{
+    margin: 1em 0;
+} */
+
+table thead th{
+    height: 1.5em;
+    padding: 0.5em 0.5em;
+}
+
+#StudentIdName{
+    display: inline;
+}
+
+#studentMetadata{
+    margin-bottom: 1em;
+}
+
+.help-text{
+    color: red;
+}
