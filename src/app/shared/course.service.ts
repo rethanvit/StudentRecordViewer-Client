@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { EnrolledCourse } from '../srv/StudentEnrolledCourses';
 import { Student } from '../srv/studentModel';
+import { UpdateCourseArgs } from '../srv/UpdateCourseDetailsModel';
+import { YearAndTerm } from './course-edit/YearTermOptions';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,11 @@ export class CourseService {
   constructor(private http: HttpClient) { 
   }
   
-  getCorrespondingAcademicYearsForAnEnrolledCourse(student: Student, enrolledCourse: EnrolledCourse): Observable<void>{
-    const body = {student: student, enrolledCourse: enrolledCourse};
-    return this.http.post<void>(`https://localhost:7076/api/students/${1}/${student.studentId}/EnrolledCourse/${1}`,body);
+  getCorrespondingAcademicYearsForAnEnrolledCourse(organizationId: number, studentId: number, courseCode: string, courseLevel:number): Observable<YearAndTerm[]>{
+    return this.http.get<YearAndTerm[]>(`https://localhost:7076/api/students/${organizationId}/${studentId}/EnrolledCourse/${courseCode}/${courseLevel}`);
   }
- 
+
+  updateEnrolledCourse(organizationId: number, studentId: number, updateCourseArgs: UpdateCourseArgs): Observable<void>{
+    return this.http.put<void>(`https://localhost:7076/api/students/${organizationId}/${studentId}/EnrolledCourse`, {updateCourseArgs});
+  }
 }

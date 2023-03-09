@@ -1,0 +1,11 @@
+.btn{
+    font-weight: bold;
+}
+
+.btn:hover{
+    transition: 1000ms;
+}
+
+.btn:not(:hover){
+    transition: 1000ms;
+}

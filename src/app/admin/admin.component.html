@@ -2,22 +2,22 @@
     <div class="col-md-2">
         <form (ngSubmit)="onSubmit()" [formGroup]="adminSearchForm">
             <div class="form-group mb-3">
-                <label class="form-label" for="studentId">Student ID</label>
+                <label class="form-label" for="studentId"><h6>Student ID</h6></label>
                 <input class="form-control" type="text" id="studentId" formControlName="studentId">
                 <span class="help-text" *ngIf="!adminSearchForm.get('studentId').valid && adminSearchForm.get('studentId').touched">Please enter a valid student ID.</span>
             </div>
             <div class="form-group mb-3">
-                <label class="form-label" for="oganizationId">Organization ID</label>
+                <label class="form-label" for="oganizationId"><h6>Organization ID</h6></label>
                 <input class="form-control" type="text" id="organizationId" formControlName="organizationId">
                 <span class="help-text" *ngIf="!adminSearchForm.get('organizationId').valid && adminSearchForm.get('organizationId').touched">Please enter a valid organization ID.</span>
             </div>
-            <button id="submitButton" class="btn btn-primary" type="submit" [disabled]="!adminSearchForm.get('organizationId').valid">Submit</button>
+            <button id="submitButton" class="btn btn-outline-primary" type="submit" [disabled]="!adminSearchForm.get('organizationId').valid">Submit</button>
         </form>
     </div>
-    <div id="studentCoursesTable" class="col-md-6" *ngIf="studentDetailsShown && studentDetailsShown.coursesEnrolled.length > 0">
+    <div class="col-md-6" *ngIf="studentDetailsShown">
         <div id="studentMetadata" class="row">
             <div id="StudentIdName" class="col-md-6">
-                <h6>Student Id</h6><p>{{studentMetadata.studentId}}</p>
+                <h6>Student Id</h6><p>{{studentMetadata?.studentId}}</p>
                 <h6>Student Name</h6><p>{{studentMetadata.firstName}} {{studentMetadata.lastName}}</p>
                 <h6>Program</h6><p>{{studentMetadata.programName}}</p>
             </div>
@@ -26,7 +26,7 @@
                 <h6>Organization</h6><p>{{studentMetadata.organizationName}}</p>
             </div>
         </div>
-        <table class="table table-bordered">
+        <table id="studentCoursesTable" class="table table-responsive table-bordered"  *ngIf="studentDetailsShown.coursesEnrolled.length > 0">
             <thead>
                 <th>#</th>
                 <th>Course</th>
@@ -37,24 +37,46 @@
                 <th>Actions</th>
             </thead>
             <tbody>
-                <tr *ngFor="let course of studentDetailsShown.coursesEnrolled; let i = index">
+                <tr class="enrolledCourse" *ngFor="let course of studentDetailsShown.coursesEnrolled; let i = index">
                     <th>{{i+1}}</th>
                     <td>{{course.courseName}}</td>
                     <td>{{course.departmentName}}</td>
                     <td>{{course.academicYear}}</td>
                     <td>{{course.academicTerm}}</td>
                     <td>{{course.marks}}</td>
-                    <td><button class="btn btn-warning" type="button" (click)="onDeleteEnrolledCourse(1, studentMetadata.studentId, {courseCode: course.courseCode, courseLevel: course.courseLevel, academicYear: course.academicYear, academicTerm: course.academicTerm})">Delete</button></td>
-                    <!-- TODO: updae the organization to not be harcoded. -->
-                    <td><button class="btn btn-primary" type="button" (click)="onEnrolledCourseEdit(studentMetadata,course)">Delete</button></td>
+                    <td>
+                        <!-- TODO: update the organization to not be harcoded. -->
+                        <button class="editEnrollCourseAction btn btn-sm btn-outline-warning" (click)="onEnrolledCourseEdit(1, studentMetadata.studentId, {courseCode: course.courseCode, courseName: course.courseName, departmentName: course.departmentName, courseLevel: course.courseLevel, academicYear: course.academicYear, academicTerm: course.academicTerm, marks: course.marks})"><span class="material-icons edit md-18">edit</span></button>
+                        <button id="deleteEnrollCourseAction" class="deleteEnrollCourseAction btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="loadModal(course.courseName, course.departmentName, course.academicYear, course.academicTerm)"><span class="material-icons delete">delete</span></button>
+                    </td>
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Attention</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Did you intend to delete the enrollment ?
+                                    <p id="attentionCourseDetail"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" (click)="onDeleteEnrolledCourse(1, studentMetadata.studentId, {courseCode: course.courseCode, courseLevel: course.courseLevel, academicYear: course.academicYear, academicTerm: course.academicTerm})">Understood</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </tr>
             </tbody>
         </table>
-    </div>
-        <div class="col-md-6" *ngIf="studentDetailsShown && studentDetailsShown.coursesEnrolled.length === 0">
+        <div *ngIf="studentDetailsShown.coursesEnrolled.length === 0">
             <h4>This student has not enrolled for any courses.</h4>
         </div>
+    </div>
     <div id="courseEditForm" class="col-md-3" *ngIf="isUserWantToEditEnrolledCourse">
-        <app-course-edit [selectedCourseToBeEdited]="emitSelectedCourseByUser"></app-course-edit>
+        <app-course-edit [selectedCourseToBeEdited]="emitSelectedCourseByUser" (SaveComplete)="hideSaveFormAndReloadCourses($event)"></app-course-edit>
     </div>
 </div>
+
+

@@ -3,7 +3,7 @@
 }
 
 #studentCoursesTable{
-    margin-left: 1.5em;
+    margin-left: 0 1.5em;
     text-align: center;
     box-sizing: border-box;
 }
@@ -23,8 +23,57 @@ table thead th{
 
 #studentMetadata{
     margin-bottom: 1em;
+    text-align: center;
 }
 
 .help-text{
     color: red;
+}
+
+.editEnrollCourseAction, .deleteEnrollCourseAction{
+    margin: 0.25em;
+}
+
+.editEnrollCourseAction{
+    color: darkorange;
+}
+
+.editEnrollCourseAction:hover{
+    color:white;
+    background-color: darkorange;
+    transition: 1000ms;
+}
+
+.editEnrollCourseAction:not(:hover){
+    transition: 1000ms;
+}
+
+.deleteEnrollCourseAction{
+    color: red;
+}
+
+.deleteEnrollCourseAction:hover, .btn-outline-danger:hover{
+    color:white;
+    background-color: red;
+    transition: 1000ms;
+}
+
+.deleteEnrollCourseAction:not(:hover), .btn-outline-danger:not(hover){
+    transition: 1000ms;
+}
+
+.btn{
+    font-weight: bold;
+}
+
+.btn:hover{
+    transition: 1000ms;
+}
+
+.btn:not(:hover){
+    transition: 1000ms;
+}
+
+#attentionCourseDetail{
+    font-weight: bold;
 }

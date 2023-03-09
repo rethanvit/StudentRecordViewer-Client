@@ -1,26 +1,33 @@
 <div class="row" *ngIf="selectedCourseToBeEdited">
     <h3>Edit Course</h3>
-    <form (ngSubmit)="onEnrolledCourseEditSubmit(f)" #f="ngForm">
+    <form (ngSubmit)="onEnrolledCourseEditSubmit()" #f="ngForm">
         <div class="form-group mb-3">
-            <label class="form-label bold" for="courseName">Course</label>
-            <input class="form-control" type="text" [disabled]="true" name="courseName" [(ngModel)]="selectedCourseToBeEdited.enrolledCourse.courseName">
+            <label class="form-label bold" for="courseName"><h6>Course</h6></label>
+            <input class="form-control" type="text" [disabled]="true" name="courseName" [(ngModel)]="selectedCourseToBeEdited.courseDetails.courseName">
         </div>
         <div class="form-group mb-3">
-            <label class="form-label" for="departmentEnrolledIn">Department</label>
-            <input class="form-control" type="text" [disabled]="true" name="departmentEnrolledIn" [(ngModel)]="selectedCourseToBeEdited.enrolledCourse.departmentName">
+            <label class="form-label bold" for="departmentEnrolledIn"><h6>Department</h6></label>
+            <input class="form-control" type="text" [disabled]="true" name="departmentEnrolledIn" [(ngModel)]="selectedCourseToBeEdited.courseDetails.departmentName">
         </div>
         <div class="form-group mb-3">
-            <label class="form-label bold" for="AcademicYear">Academic Year</label>
-            <select class="form-select">
-                <option *ngFor="let year of courseEditForm" value="{{year}}" [selected]="isSameYearAsCurrent(year)">{{year}}</option>
+            <label class="form-label bold" for="academicYear"><h6>Academic Year</h6></label>
+            <select class="form-select" id="academicYear" name="academicYear" [(ngModel)]="academicYearSelected" (change)="onChange()">
+                <option *ngFor="let item of courseEditYearAndTermOptions" [value]="item.academicYear">{{item.academicYear}}</option>
             </select>
         </div>
         <div class="form-group mb-3">
-            <label class="form-label" for="marks">Marks</label>
-            <input class="form-control" type="text" name="marks" [(ngModel)]="selectedCourseToBeEdited.enrolledCourse.marks">
+            <label class="form-label bold" for="academicTerm"><h6>Academic Term</h6></label>
+            <select class="form-select" id="academicTerm" name="academicTerm" [(ngModel)]="academicTermSelected">
+                <option *ngFor="let term of AcademicTermsOptionsForAcademicYear" [value]="term">{{term}}</option>
+            </select>
         </div>
         <div class="form-group mb-3">
-            <button class="btn btn-primary" type="submit">Save</button>
+            <label class="form-label" for="marks"><h6>Marks</h6></label>
+            <input class="form-control" type="text" name="marks" [(ngModel)]="marks">
+        </div>
+        <div class="form-group mb-3">
+            <button class="btn btn-outline-primary" type="submit">Save</button>
         </div>
     </form>
 </div>
+
