@@ -1,0 +1,8 @@
+.alighn-space-bw {
+    justify-content: space-between;
+}
+
+.disabled {
+    pointer-events: none;
+    color: #ccc;
+}

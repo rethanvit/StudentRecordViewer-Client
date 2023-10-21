@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-xs-12 col-md-3">
+        <h3>Add student to the system</h3>
+        <form #addStudentForm="ngForm" (ngSubmit)="addStudentSubmit(addStudentForm)">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input id="firstName" name="firstName" type="text" class="form-control" ngModel required/>
+            </div>
+            <div class="form-group">
+                <label for="lastName">LastName</label>
+                <input id="lastName" name="lastName" type="text" class="form-control" ngModel required/>
+            </div>
+            <div class="form-group">
+                <label for="organization">Organization</label>
+                <select id="organization" name="organization" class="form-control" required [(ngModel)]="organizationIdChosen" (change)="onOrganizationSelect()">
+                    <!-- <option [value]="organizationIdChosen" selected disabled>Please choose an organization..</option> -->
+                    <option *ngFor="let org of organizations" [value]="org.organizationId">{{org.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select id="department" name="department" class="form-control" required [(ngModel)]="departmentIdChosen" (change)="onDepartmentSelect()">
+                    <option *ngFor="let dept of departments" [value]="dept.departmentId">{{dept.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="program">Program</label>
+                <select id="program" name="program" class="form-control" required [(ngModel)]="programIdChosen" (change)="onProgramSelect()">
+                    <option *ngFor="let prog of programs" [value]="prog.programId">{{prog.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="academicStart">Academic Start</label>
+                <select id="academicStart" name="academicStart" class="form-control" required [(ngModel)]="academicCalendarDetailsOptionChosen">
+                    <option *ngFor="let acdo of academicCalendarDetailsOptions" [value]="acdo.academicCalendarDetailId">{{acdo.year}} - {{acdo.term}} - {{acdo.startDate}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-outline-primary" [disabled]="!addStudentForm.valid" type="submit" >Add Student</button>
+            </div>
+        </form>
+    </div>
+</div>

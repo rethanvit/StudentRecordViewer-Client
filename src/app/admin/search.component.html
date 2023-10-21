@@ -14,7 +14,7 @@
             <button id="submitButton" class="btn btn-outline-primary" type="submit" [disabled]="!adminSearchForm.get('organizationId').valid">Submit</button>
         </form>
     </div>
-    <div class="col-md-6" *ngIf="studentDetailsShown">
+    <div class="col-md-7" *ngIf="studentDetailsShown">
         <div id="studentMetadata" class="row">
             <div id="StudentIdName" class="col-md-6">
                 <h6>Student Id</h6><p>{{studentMetadata?.studentId}}</p>
@@ -30,6 +30,7 @@
             <thead>
                 <th>#</th>
                 <th>Course</th>
+                <th>Level</th>
                 <th>Department</th>
                 <th>Academic Year</th>
                 <th>Academic Term</th>
@@ -40,6 +41,7 @@
                 <tr class="enrolledCourse" *ngFor="let course of studentDetailsShown.coursesEnrolled; let i = index">
                     <th>{{i+1}}</th>
                     <td>{{course.courseName}}</td>
+                    <td>{{course.courseLevel}}</td>
                     <td>{{course.departmentName}}</td>
                     <td>{{course.academicYear}}</td>
                     <td>{{course.academicTerm}}</td>
@@ -71,7 +73,35 @@
             </tbody>
         </table>
         <div *ngIf="studentDetailsShown.coursesEnrolled.length === 0">
-            <h4>This student has not enrolled for any courses.</h4>
+            <h4>This student has no enrolled courses.</h4>
+        </div>
+        <button id="addCourses" class="btn btn-outline-primary" type="submit" (click)="toggleIsCourseAdd()">Add courses</button>
+        <div *ngIf="IsCourseAdd">
+            <form (ngSubmit)="onAddStudentCourse(courseAddForm)" #courseAddForm="ngForm">
+                <div class="form-group">
+                    <label for="program">Program</label>
+                    <select id="program" name="program" class="form-control" required [(ngModel)]="courseIdChosen" (change)="onCourseChange()">
+                        <option *ngFor="let course of coursesDropDown" [value]="course.CourseId">{{course.Name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <select id="year" name="year" class="form-control" required [(ngModel)]="yearChosen" (change)="onYearChange()">
+                        <option *ngFor="let year of yearDropDown" [value]="year">{{year}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="term">Term</label>
+                    <select id="term" name="term" class="form-control" required [(ngModel)]="academicTermChosen">
+                        <option *ngFor="let term of academicTermDropDown" [value]="term">{{term}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="marks">Marks</label>
+                    <input type="text" id="marks" name="marks" [(ngModel)]="marks" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-outline-primary" type="submit">Submit</button>
+            </form>
         </div>
     </div>
     <div id="courseEditForm" class="col-md-3" *ngIf="isUserWantToEditEnrolledCourse">

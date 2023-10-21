@@ -1,0 +1,76 @@
+import { Component, OnInit } from "@angular/core";
+import { StudentMetadataService } from "./student.metadata.service";
+import { Organization } from "../../srv/OrganizationModel";
+import { Department } from "../../srv/DepartmentModel";
+import { Program } from "../../srv/ProgramModel";
+import { NgForm } from "@angular/forms";
+import { AcademicCalendarDetailsOptions } from "../../srv/AcademicCalendarDetailOptionsModel";
+import { AddStudent } from "../../srv/AddStudentModel";
+import { Router } from "@angular/router";
+
+@Component({
+    selector: 'add-student',
+    templateUrl: './add-student.component.html',
+    styleUrls: ['./add-student.component.css']
+})
+
+export class AddStudentComponent implements OnInit {
+
+    organizations:Organization[] = [];
+    organizationIdChosen: number;
+    departmentIdChosen: number;
+    programIdChosen: number;
+    academicCalendarDetailsOptionChosen: number;
+    departments:Department[] = [];
+    programs:Program[] = [];
+    academicCalendarDetailsOptions:AcademicCalendarDetailsOptions[] = [];
+
+    constructor(private studentMetadataService: StudentMetadataService, private router: Router) {
+        
+    }
+
+    ngOnInit(): void {
+        this.studentMetadataService.getOrganizations().subscribe(orgs => {
+            this.organizations = this.organizations.concat(orgs);
+        });
+
+    }
+
+    addStudentSubmit(form: NgForm){
+        // this.studentMetadataService.addStudent()
+        var studentToBeAdded= new AddStudent();
+        studentToBeAdded.AcademicDetailsStartId = this.academicCalendarDetailsOptionChosen;
+        studentToBeAdded.FirstName= form.controls['firstName'].value;
+        studentToBeAdded.LastName= form.controls['lastName'].value;
+        studentToBeAdded.ProgramId= this.programIdChosen;
+
+        this.studentMetadataService.addStudent(studentToBeAdded).subscribe(result => {
+            if(result == 1)
+            {
+                this.router.navigate(['/search']);
+            }
+        });
+
+    }
+
+    onOrganizationSelect(){
+        this.departments = [];
+        this.studentMetadataService.getDepartments(this.organizationIdChosen).subscribe(deps => {
+            this.departments = deps;
+        });
+    }
+
+    onDepartmentSelect(){
+
+        this.studentMetadataService.getPrograms(this.departmentIdChosen).subscribe(progs => {
+            this.programs = progs
+        });
+    }
+
+    onProgramSelect(){
+        this.studentMetadataService.getAcademicCalendarDetailsForProgram(this.programIdChosen).subscribe(acdos => {
+            this.academicCalendarDetailsOptions = acdos
+        });
+    }
+    
+}
