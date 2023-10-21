@@ -103,6 +103,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   hideSaveFormAndReloadCourses(event: boolean) {
+    this.IsCourseAdd = false;
     this.isUserWantToEditEnrolledCourse = !event;
     this.updateStudentEnrolledCourses(1, this.studentMetadata.studentId); //TODO: do not force the org Id to 1
   }
@@ -118,6 +119,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   toggleIsCourseAdd(){
+    this.isUserWantToEditEnrolledCourse = false;
     this.IsCourseAdd = !this.IsCourseAdd;
     this.onAddStudent();
   }

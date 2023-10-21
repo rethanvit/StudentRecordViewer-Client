@@ -20,6 +20,7 @@ export class AddStudentComponent implements OnInit {
     organizationIdChosen: number;
     departmentIdChosen: number;
     programIdChosen: number;
+    newlyAddedStudentId: number;
     academicCalendarDetailsOptionChosen: number;
     departments:Department[] = [];
     programs:Program[] = [];
@@ -45,9 +46,10 @@ export class AddStudentComponent implements OnInit {
         studentToBeAdded.ProgramId= this.programIdChosen;
 
         this.studentMetadataService.addStudent(studentToBeAdded).subscribe(result => {
-            if(result == 1)
+            if(!isNaN(result))
             {
-                this.router.navigate(['/search']);
+                this.newlyAddedStudentId = result;
+                //this.router.navigate(['/search']);
             }
         });
 
@@ -71,6 +73,12 @@ export class AddStudentComponent implements OnInit {
         this.studentMetadataService.getAcademicCalendarDetailsForProgram(this.programIdChosen).subscribe(acdos => {
             this.academicCalendarDetailsOptions = acdos
         });
+    }
+
+    copyStudentId(){
+        let copyText = document.getElementById("StudentAddSuccessMessage");
+        let studentId = copyText?.innerText.substring(copyText?.innerText.indexOf(':')+1).trim();
+        navigator.clipboard.writeText(`${studentId}`);
     }
     
 }

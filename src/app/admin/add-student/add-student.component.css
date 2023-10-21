@@ -1,0 +1,29 @@
+.btn{
+    font-weight: bold;
+}
+
+.btn:hover{
+    transition: 1000ms;
+}
+
+.btn:not(:hover){
+    transition: 1000ms;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+  
+}
+
+.pointerCursor:hover {
+    cursor: pointer;
+}
+
+#StudentAddSuccessMessage{
+    display: flex;
+    justify-content: space-between;
+}

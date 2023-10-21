@@ -76,36 +76,39 @@
             <h4>This student has no enrolled courses.</h4>
         </div>
         <button id="addCourses" class="btn btn-outline-primary" type="submit" (click)="toggleIsCourseAdd()">Add courses</button>
-        <div *ngIf="IsCourseAdd">
-            <form (ngSubmit)="onAddStudentCourse(courseAddForm)" #courseAddForm="ngForm">
-                <div class="form-group">
-                    <label for="program">Program</label>
-                    <select id="program" name="program" class="form-control" required [(ngModel)]="courseIdChosen" (change)="onCourseChange()">
-                        <option *ngFor="let course of coursesDropDown" [value]="course.CourseId">{{course.Name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="year">Year</label>
-                    <select id="year" name="year" class="form-control" required [(ngModel)]="yearChosen" (change)="onYearChange()">
-                        <option *ngFor="let year of yearDropDown" [value]="year">{{year}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="term">Term</label>
-                    <select id="term" name="term" class="form-control" required [(ngModel)]="academicTermChosen">
-                        <option *ngFor="let term of academicTermDropDown" [value]="term">{{term}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="marks">Marks</label>
-                    <input type="text" id="marks" name="marks" [(ngModel)]="marks" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-outline-primary" type="submit">Submit</button>
-            </form>
-        </div>
     </div>
     <div id="courseEditForm" class="col-md-3" *ngIf="isUserWantToEditEnrolledCourse">
         <app-course-edit [selectedCourseToBeEdited]="emitSelectedCourseByUser" (SaveComplete)="hideSaveFormAndReloadCourses($event)"></app-course-edit>
+    </div>
+    <div *ngIf="IsCourseAdd" class="col-md-3">
+        <h3>Add Course</h3>
+        <form (ngSubmit)="onAddStudentCourse(courseAddForm)" #courseAddForm="ngForm">
+            <div class="form-group mb-3">
+                <label for="program"><h6>Program</h6></label>
+                <select id="program" name="program" class="form-select" required [(ngModel)]="courseIdChosen" (change)="onCourseChange()">
+                    <option *ngFor="let course of coursesDropDown" [value]="course.CourseId">{{course.Name}}</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="year"><h6>Year</h6></label>
+                <select id="year" name="year" class="form-select" required [(ngModel)]="yearChosen" (change)="onYearChange()">
+                    <option *ngFor="let year of yearDropDown" [value]="year">{{year}}</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="term" class="form-label bold">Term</label>
+                <select id="term" name="term" class="form-select" required [(ngModel)]="academicTermChosen">
+                    <option *ngFor="let term of academicTermDropDown" [value]="term">{{term}}</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label for="marks"><h6>Marks</h6></label>
+                <input type="text" id="marks" name="marks" [(ngModel)]="marks" class="form-control">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-outline-primary" type="submit">Submit</button>
+            </div>
+        </form>
     </div>
 </div>
 
