@@ -121,10 +121,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   toggleIsCourseAdd(){
     this.isUserWantToEditEnrolledCourse = false;
     this.IsCourseAdd = !this.IsCourseAdd;
-    this.onAddStudent();
+    this.GetCourses();
   }
 
-  onAddStudent(){
+  GetCourses(){
     this.studentService.getOptionsForAddingCourses(this.studentMetadata.studentId).subscribe(response => {
       this.coursesTheStudentCouldHaveEnrolledFor = response;
       this.coursesDropDown = [];
@@ -156,15 +156,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.studentService.addEnrolledCourse(this.studentMetadata.studentId, newCourse).subscribe(response => {
       this.updateStudentEnrolledCourses(1, this.studentMetadata.studentId);
       this.IsCourseAdd = false;
-      this.resetAddCourseFormValues();
+
+      //resetting the form, so that on next course add the previous values are not persisted in the input fields
+      form.resetForm();
     });
   }
-  resetAddCourseFormValues() {
-    this.courseIdChosen = NaN;
-    this.marks = NaN;
-    this.academicTermChosen = '';
-    this.yearChosen = NaN;
-
-  }
-
 }

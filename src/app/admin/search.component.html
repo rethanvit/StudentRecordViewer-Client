@@ -82,7 +82,7 @@
     </div>
     <div *ngIf="IsCourseAdd" class="col-md-3">
         <h3>Add Course</h3>
-        <form (ngSubmit)="onAddStudentCourse(courseAddForm)" #courseAddForm="ngForm">
+        <form (ngSubmit)="onAddStudentCourse(courseAddForm)" #courseAddForm="ngForm" *ngIf="coursesDropDown.length; else noCoursesToAdd">
             <div class="form-group mb-3">
                 <label for="program"><h6>Program</h6></label>
                 <select id="program" name="program" class="form-select" required [(ngModel)]="courseIdChosen" (change)="onCourseChange()">
@@ -109,6 +109,7 @@
                 <button type="submit" class="btn btn-outline-primary" type="submit">Submit</button>
             </div>
         </form>
+        <ng-template #noCoursesToAdd>There are no courses found that student could have registered for.</ng-template>
     </div>
 </div>
 
