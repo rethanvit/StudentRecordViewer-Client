@@ -1,15 +1,11 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CourseService } from '../shared/course.service';
 import { CourseDetail } from '../srv/CourseDetailModel';
 import { DeleteCourse } from '../srv/DeleteCourseModel';
-import { EnrolledCourse } from '../srv/StudentEnrolledCourses';
 import { Student } from '../srv/studentModel';
 import { IStudentWithCourses, StudentWithCourses } from '../srv/StudentWithCourses';
 import { StudentService } from './student.service';
-import { Program } from '../srv/ProgramModel';
 import { CourseDto } from '../srv/CourseOptionsModel';
 import { AddEnrolledCourseRequest } from '../srv/AddEnrolledCourseRequestModel';
 
@@ -49,7 +45,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   marks: number;
 
 
-  constructor(private studentService: StudentService, private courseService: CourseService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private studentService: StudentService) { }
 
   ngOnInit(): void {
     this.adminSearchForm = new FormGroup({

@@ -26,7 +26,7 @@ export class AddStudentComponent implements OnInit {
     programs:Program[] = [];
     academicCalendarDetailsOptions:AcademicCalendarDetailsOptions[] = [];
 
-    constructor(private studentMetadataService: StudentMetadataService, private router: Router) {
+    constructor(private studentMetadataService: StudentMetadataService) {
         
     }
 
@@ -38,7 +38,6 @@ export class AddStudentComponent implements OnInit {
     }
 
     addStudentSubmit(form: NgForm){
-        // this.studentMetadataService.addStudent()
         var studentToBeAdded= new AddStudent();
         studentToBeAdded.AcademicDetailsStartId = this.academicCalendarDetailsOptionChosen;
         studentToBeAdded.FirstName= form.controls['firstName'].value;

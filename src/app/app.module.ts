@@ -5,13 +5,13 @@ import { AppComponent } from './app.component';
 import { SRVComponent } from './srv/srv.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
-import { SearchComponent } from './admin/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { CourseEditComponent } from './shared/course-edit/course-edit.component';
 import { AuthComponent } from './shared/Auth/auth.component';
 import { AddStudentComponent } from './admin/add-student/add-student.component';
 import { AuthInterceptorService } from './shared/Auth/auth-interceptor';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
