@@ -4,7 +4,8 @@ import { Subscription } from 'rxjs';
 import { CourseDetail } from 'src/app/srv/CourseDetailModel';
 import { EnrolledCourse } from 'src/app/srv/StudentEnrolledCourses';
 import { UpdateCourseArgs } from 'src/app/srv/UpdateCourseDetailsModel';
-import { CourseService } from '../course.service';
+import { CourseService } from './course.service';
+
 import { YearAndTerm } from './YearTermOptions';
 
 @Component({

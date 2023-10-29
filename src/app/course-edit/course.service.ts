@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { EnrolledCourse } from '../srv/StudentEnrolledCourses';
-import { Student } from '../srv/studentModel';
 import { UpdateCourseArgs } from '../srv/UpdateCourseDetailsModel';
-import { YearAndTerm } from './course-edit/YearTermOptions';
+import { YearAndTerm } from './YearTermOptions';
+
 
 @Injectable({
   providedIn: 'root'
