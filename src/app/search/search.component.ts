@@ -49,8 +49,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.adminSearchForm = new FormGroup({
-      'studentId': new FormControl(null, [Validators.required, Validators.pattern('^[1-9]\d*$')]),
-      'organizationId': new FormControl(null, [Validators.required, Validators.pattern('^[1-9]\d*$')])
+      'studentId': new FormControl(null, [Validators.required]),
+      'organizationId': new FormControl(null, [Validators.required])
     });
   }
 
