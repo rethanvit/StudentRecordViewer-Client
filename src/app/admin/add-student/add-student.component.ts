@@ -48,12 +48,10 @@ export class AddStudentComponent implements OnInit {
             if(!isNaN(result))
             {
                 this.newlyAddedStudentId = result;
+                form.resetForm();
                 //this.router.navigate(['/search']);
             }
         });
-
-        form.resetForm();
-
     }
 
     onOrganizationSelect(){
