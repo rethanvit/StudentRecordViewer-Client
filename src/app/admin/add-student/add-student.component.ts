@@ -75,8 +75,6 @@ export class AddStudentComponent implements OnInit {
     }
 
     copyStudentId(){
-        //let copyText = document.getElementById("StudentAddSuccessMessage");
-      //let studentId = copyText?.innerText.substring(copyText?.innerText.indexOf(':')+1).trim();
       if (this.newlyAddedStudentId !== 0)
         navigator.clipboard.writeText(`${this.newlyAddedStudentId}`);
     }
